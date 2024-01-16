@@ -5,3 +5,4 @@
 <?$path =  substr($_SERVER['PHP_SELF'],0,-4)?>
 <script src="/IoTbot/assets/dist/js<?echo $path?>.js" > </script>
 
+

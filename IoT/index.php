@@ -1,9 +1,9 @@
 <?php
-include $_SERVER['CONTEXT_DOCUMENT_ROOT']."/AiIoT/__libraries/load.php";
+include $_SERVER['CONTEXT_DOCUMENT_ROOT']."/IoTbot/__libraries/load.php";
 
-// load_template("_head.php");
+load_template("head.php");
 
-// load_template("_output_screen.php");
+load_template("output_screen.php");
 
 
 load_template("inputfield.php");
