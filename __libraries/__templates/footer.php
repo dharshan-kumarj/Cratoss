@@ -3,6 +3,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <?//This 2 line Automatically link respective js?>
 <?$path =  substr($_SERVER['PHP_SELF'],0,-4)?>
-<script src="/IoTbot/assets/dist/js<?echo $path?>.js" > </script>
+<script src="/IoTbot/__libraries/assets/dist/js<?echo $path?>.js" > </script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
 
 

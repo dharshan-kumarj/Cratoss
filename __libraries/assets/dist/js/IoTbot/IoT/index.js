@@ -7,8 +7,10 @@ function Ajax(){
         userin:$("#userin").val(),
       },
   
-      success: function(msg){
-        alert(msg)
+      success: function(response){
+        alert(response)
+        result_=JSON.parse(response[0])
+        console.log(result_);
       }
     })
 }

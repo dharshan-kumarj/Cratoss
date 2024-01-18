@@ -38,11 +38,10 @@ def structured_generator(prompt):
     return chat_completion
 
 
-prompt = ( f"You are an IoT technician,you can answer the question which is of network of connections also,you can answer the question on ECE,
-          You need to answer if the question is only Related to Iot and network and if not,say it is out of scope question {user_input}")
+prompt = ( f"You are an IoT technician,You need to answer if the question is only Related to Iot and if not,say it is out of scope question {user_input}")
 result=structured_generator(prompt)
 output=result.choices[0].message.content
 
 dict_=dict()
 dict_={"output":output}
-print(dict_)
+print(json.dumps(dict_))
