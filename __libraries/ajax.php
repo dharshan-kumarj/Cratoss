@@ -2,9 +2,12 @@
 
 include "load.php";
 
-$userin = $_POST['userin'];
+$userin = $_POST['userinput'];
 
-print($userin);
+$output;
+
+exec('python3 __py_/source.py -i "$userinput"',$output);
+print_r($output);
 
 
 ?>
