@@ -10,10 +10,10 @@
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
     <?//This 2 line Automatically link respective css?>
     <?$path =  substr($_SERVER['PHP_SELF'],0,-4);?>
-    <link href="/IoTbot/assets/dist/css<?echo $path?>.css" rel="stylesheet">
+    <link href="/IoTbot/__libraries/assets/dist/css<?echo $path?>.css" rel="stylesheet">
  
     <!-- Bootstrap core CSS -->
-    <link href="/IoTbot/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/IoTbot/__libraries/assets/dist/css/bootstrap.min.css" rel="stylesheet">
   
     <style>
         /* Hide page by default */
