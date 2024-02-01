@@ -1,7 +1,7 @@
 function Ajax(){
   
   var new_row = document.createElement( "div" );
-  new_row.setAttribute( "class", "container text-end" );
+  new_row.setAttribute( "class", "container text-end user" );
   const node = document.createTextNode($("#userinput").val());
   new_row.appendChild(node);
   document.body.appendChild( new_row );
@@ -9,19 +9,19 @@ function Ajax(){
     $.ajax({ type :"post", url: "/IoTbot/__libraries/ajax.php",
       data:{
         
-        put:$("#userinput").val(),
+        userinput:$("#userinput").val(),
       },
   
       success: function(response){
-       
-      var new_row = document.createElement( "div" );
-      new_row.setAttribute( "class", "container p3" );
-      const node = document.createTextNode(response);
-      new_row.appendChild(node);
-      document.body.appendChild( new_row );
-        result_=JSON.parse(response[0])
-        // console.log(result_);
-      }
+        result_=JSON.parse(response)
+        var new_row = document.createElement( "div" );
+        new_row.setAttribute( "class", "container AI " );
+        const node = document.createTextNode(result_['output']);
+        new_row.appendChild(node);
+        document.body.appendChild( new_row );
+          result_=JSON.parse(response)
+          
+        }
     })
 }
 

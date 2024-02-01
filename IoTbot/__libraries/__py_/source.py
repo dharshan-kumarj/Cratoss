@@ -8,11 +8,15 @@ from dotenv import load_dotenv
 
 def Argument():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--input', '-i',help='Enter input as a string')
+    parser.add_argument('--input', '-i',help='Enter input')
     args = vars(parser.parse_args())
     return args
 
 user_input= Argument()['input']
+
+
+
+
 
 
 load_dotenv()
@@ -20,7 +24,6 @@ load_dotenv()
 client = OpenAI(
     api_key=os.getenv("OPEN_API_KEY")
 )
-
 
 def structured_generator(prompt):
     chat_completion = client.chat.completions.create(
@@ -35,15 +38,8 @@ def structured_generator(prompt):
     return chat_completion
 
 
-iot_prompt =  """
-IoT Chatbot: Help me control and monitor your IoT devices.
-
-User: [User's input related to IoT]
-
-IoT Chatbot: [Generate the AI response based on the user input and IoT context]
-"""
-combined_prompt = iot_prompt + f"\nUser: {user_input}\n"
-result=structured_generator(combined_prompt)
+prompt = ( f"You are an IoT technician,You need to answer if the question is only Related to Iot and if not,say it is out of scope question {user_input}")
+result=structured_generator(prompt)
 output=result.choices[0].message.content
 
 dict_=dict()

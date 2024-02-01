@@ -12,3 +12,14 @@ load_template("footer.php");
 
 
 ?>
+<style>
+.user{
+    backgroundcolor:blue
+
+}
+
+.ai{
+    backgroundcolor:green
+}
+
+</style>
