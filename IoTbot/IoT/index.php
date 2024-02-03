@@ -11,7 +11,7 @@ load_template("inputfield.php");
 load_template("footer.php");
 
 
-
-
 ?>
 
+<div id="User"></div>
+<div id="AI"></div>
