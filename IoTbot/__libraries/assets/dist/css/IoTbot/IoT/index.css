@@ -1,11 +1,7 @@
 .container.text-end.user{
     background-color:antiquewhite;
     width: 60%;
-    width: 100px;
-    height: 100px;
-    position: absolute;
-    bottom: 10px;
-    right: 20px;
+  
     
 
 }
@@ -17,6 +13,7 @@
 
     
 }
+
 
 /* .AI{
     border-radius: 50%;

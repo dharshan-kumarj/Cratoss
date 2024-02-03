@@ -4,5 +4,3 @@
 
 </div>
 
-<div id="User"></div>
-<div id="AI"></div>
