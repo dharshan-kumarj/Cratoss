@@ -7,9 +7,9 @@
     margin-right: auto;">
         <div class="row">
             <div class="input-group mb-3">
-                <input id = "userinput" name ="userinput" type="text" class="form-control" placeholder="Enter Question" >
+                <input id = "userinput" name ="userinput" type="text" class="form-control" placeholder="Ask me...." >
                 <div class="input-group-append">
-                    <button id="Execute" type="button" class="btn btn-primary" onclick="Ajax()">Send</button>
+                    <button id="Execute" type="button" class="btn btn-primary" onclick="Ajax() ">Send</button>
                 </div>
             </div>
     
