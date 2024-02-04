@@ -1,10 +1,12 @@
 function Ajax(){
   
   var new_row = document.createElement( "div" );
-  new_row.setAttribute( "class", "container text-end user");
+  new_row.setAttribute( "class", "container text-end user ");
+  
   new_row.setAttribute("id","Profile");
   
   const node = document.createTextNode($("#userinput").val());
+  
   new_row.appendChild(node);
   document.body.appendChild( new_row );
   elem = document.createElement("img");
@@ -13,11 +15,13 @@ function Ajax(){
   elem.src= "/IoTbot/__libraries/__images/User.png";
   elem.height= "50";
   elem.width= "70";
+  elem.border= "3px solid gainsboro";
   elem.alt= "User";
   elem.setAttribute( "class", "rounded-circle ");
   
   //  ($spacer * .5)
   new_row.appendChild(elem);
+ 
   
   document.body.appendChild( new_row );
   
@@ -35,7 +39,7 @@ function Ajax(){
         
         result_=JSON.parse(response)
         var new_row = document.createElement( "div" );
-        new_row.setAttribute( "class", "container AI" );
+        new_row.setAttribute( "class", "container AI pe-3" );
         new_row.setAttribute("id","Profile");
         const node = document.createTextNode(result_['output']);
       
@@ -47,6 +51,7 @@ function Ajax(){
           elem.src= "/IoTbot/__libraries/__images/AI.png";
           elem.height= "50";
           elem.width= "70";
+          elem.border= "3px solid gainsboro";
           elem.alt= "User";
           elem.setAttribute( "class", "rounded-circle ");
         
