@@ -1,12 +1,17 @@
-.container.text-end.user{
-    color:aliceblue;
+.user{
+    color:rgb(11, 12, 12);
+    
+      
     
     
 }
 
 .AI{
-    color:aliceblue;
+    color:rgb(0, 0, 0);
 }
+
+
+
 
 /* .box {
     width: 200px;
@@ -20,21 +25,21 @@
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-  }
+  } */
 
-  .chat-container {
+  /* .chat-container {
     display: flex;
     flex-direction: column;
-    height: 100vh;
-  }
+    
+  } */
 
-  .chat-messages {
+  /* .chat-messages {
     flex: 1;
-    overflow-y: auto;
+    overflow-y: fixed;
     padding: 10px;
-  }
+  } */
 
-  .input-container {
+  /* .input-container {
     display: flex;
     align-items: center;
     padding: 10px;

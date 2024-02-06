@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class = "wrapper">
+        <div class = "link-container">copied the text!</div>
+        <button class = "copy-btn" onclick="copy()">copy</button>
+    </div>
+</body>
+<script>
+
+    const  copybtn = document.querySelector('.copy-btn');
+    const  elem = document.querySelector('.link-container')
+    
+    function copy(){
+        navigator.clipboard.writeText(elem.innerText);
+        copybtn.innerText="Copied";
+        elem.classList.add('copied');
+
+        setTimeout(() => {
+            elem.classList.remove('copied');
+            copybtn.innerText='Copy';
+     },1000);
+    }
+</script>
+</html>

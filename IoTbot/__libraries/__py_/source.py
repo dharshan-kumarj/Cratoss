@@ -3,6 +3,7 @@ import json
 from openai import OpenAI
 import os
 from dotenv import load_dotenv
+from time import sleep
 
 
 
@@ -37,6 +38,11 @@ def structured_generator(prompt):
     )
     return chat_completion
 
+# def type(final_out):
+#     for i in final_out:
+#         print(i,end = "")
+#         sleep(.3)
+
 
 prompt = ( f"You are an IoT technician,You need to answer if the question is only Related to Iot and if not,say it is out of scope question {user_input}")
 result=structured_generator(prompt)
@@ -44,4 +50,5 @@ output=result.choices[0].message.content
 
 dict_=dict()
 dict_={"output":output}
-print(json.dumps(dict_))
+final_out=json.dumps(dict_)
+print(final_out)

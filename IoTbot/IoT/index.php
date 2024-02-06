@@ -1,4 +1,4 @@
-<div class="chat-container">
+
 
 
 <?php
