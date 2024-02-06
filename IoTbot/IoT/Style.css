@@ -1,0 +1,51 @@
+body{
+    background-color: coral;
+    background: linear-gradient(to right,#64522c,#433720,#27230f);
+}
+
+.container{
+    display: flex;
+    justify-content:center;
+    margin-top: 12em;
+}
+
+.inner{
+    text-align: center;
+    color: whitesmoke;
+    overflow: hidden;
+    padding: 0.4em;
+}
+
+.inner > h1{
+    font-size: 3.5em;
+    animation: Slide_Up 1.4s ease;
+}
+.inner > h2{
+    
+    animation: Slide_Up 1.4s ease;
+}
+
+.inner > p{
+    font-size: 1.2em;
+    animation: Slide_Up 2.1s ease;
+}
+
+.inner > button{
+    margin-top: 2em;
+    padding: 1em 2.5em;
+    font-size: 1em;
+    border-radius:4em;
+    border: none;
+    background: #2f1085;
+    color: whitesmoke;
+    animation: Slide_Up 2.4s ease;
+}
+
+@keyframes Slide_Up {
+    0%{
+        transform: translateY(250px);
+    }
+    100%{
+        transform: translateY(0);
+    }
+}
