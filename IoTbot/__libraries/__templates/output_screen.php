@@ -4,17 +4,17 @@
 
 </div>
 
-<div id="typingIndicator"></div>
+<!-- <div id="typingIndicator"></div> -->
 
 
 <style>
 
 body{
-      background-color:#282828;
+      background-color:#282828;    
       }
 
 
- #typingIndicator {
+ /* #typingIndicator {
       font-family: Arial, sans-serif;
       font-size: 16px;
       color: whitesmoke;
@@ -23,7 +23,7 @@ body{
       background-color: #282828;
       border-radius: 5px;
       margin-top: 10px;
-    }
+    } */
 </style>
 
 
