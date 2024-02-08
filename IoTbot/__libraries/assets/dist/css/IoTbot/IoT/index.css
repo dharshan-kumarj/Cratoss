@@ -1,74 +1,23 @@
 .user{
-    color:rgb(11, 12, 12);
+    color:whitesmoke;
     
       
     
     
 }
 
+
 .AI{
-    color:rgb(0, 0, 0);
+    color:white;
+    
+}
+
+
+.btn{
+  float: right;
 }
 
 
 
 
-/* .box {
-    width: 200px;
-    height: 100px;
-    border: 1px solid black;
-    padding: 10px;
-    margin: 10px;
-  } */
 
-  /* body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-  } */
-
-  /* .chat-container {
-    display: flex;
-    flex-direction: column;
-    
-  } */
-
-  /* .chat-messages {
-    flex: 1;
-    overflow-y: fixed;
-    padding: 10px;
-  } */
-
-  /* .input-container {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    background-color: #f0f0f0;
-  }
-
-  .message-input {
-    flex: 1;
-    padding: 8px;
-    margin-right: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-  }
-
-  .send-button {
-    padding: 8px 16px;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  } */
-
-
-
-
-
-/* .AI{
-    border-radius: 50%;
-    width:200px;
-  } */
