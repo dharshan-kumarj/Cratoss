@@ -6,8 +6,8 @@
     right: 0;                        
     margin-left: auto;
     margin-right: auto;
-    bottom:30;
     background-color:#282828;
+    
     ">
         <div class="row">
             <div class="input-group mb-3">
@@ -24,4 +24,14 @@
         </div>
     </div>
 </div>
+
+<script>
+var input = document.getElementById("userinput");
+input.addEventListener("keypress", function(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    document.getElementById("Execute").click();
+  }
+});
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

@@ -1,14 +1,21 @@
 .user{
     /* to add colour to text of user */
-    color:whitesmoke;    
+    color:whitesmoke; 
+    
+       
     
 }
+
 
 
 .AI{
   /* to add colour to text of AI */
     color:white;
+  
+   
 }
+
+
 
 
 .btn{

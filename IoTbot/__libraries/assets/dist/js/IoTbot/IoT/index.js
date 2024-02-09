@@ -20,7 +20,7 @@ function Ajax() {
   new_row.appendChild(elem);
   document.body.appendChild(new_row);
 
-  const outputContainer = document.createElement("div");  //for Cratoss op
+  const outputContainer = document.createElement("div");          //for Cratoss op
   outputContainer.setAttribute("class", "container AI");            
   outputContainer.setAttribute("id", "Profile");
   elem = document.createElement("img");
@@ -48,7 +48,7 @@ function Ajax() {
     success: function (response) {
       
       result_ = JSON.parse(response);
-      stoptypeanimation();
+      stoptypeanimation(); //to start type animation
       $('#typingIndicator').remove()
       const outputText = result_["output"];
       document.body.appendChild(outputContainer);
@@ -67,7 +67,7 @@ function Ajax() {
       });
       var t = document.createTextNode("Copy");
       x.appendChild(t);
-      outputContainer.appendChild(x);
+      
 
 
      
@@ -77,15 +77,26 @@ function Ajax() {
           const charNode = document.createTextNode(char);                // This phase is for animation of text animation
           outputContainer.appendChild(charNode);
           index++;
+          
           setTimeout(typeNextCharacter, typingDelay);
+          outputContainer.appendChild(x);
+          window.scrollTo(1000, 1000); 
+         
         } else {
           Copy(result_['output']);
-          // $('container AI')[0].scrollTop = $('body')[0].scrollHeight;
+          // $('container AI')[0].scrollTop = $('container AI')[0].scrollHeight;
         }
       }
       typeNextCharacter();
-      // window.scrollTo(0, document.body.scrollHeight);
+      
+      
 
+
+      // const scrollingContainer = document.getElementById('Scroll');
+      // const scrollSpeed = 30;
+      // const totalHeight = scrollingContainer.scrollHeight;
+      // const totalTime = (totalHeight / scrollSpeed) * 1000;
+      
     },
   });
     
