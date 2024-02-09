@@ -20,14 +20,14 @@ function Ajax() {
   new_row.appendChild(elem);
   document.body.appendChild(new_row);
 
-  const outputContainer = document.createElement("div");  //for TEchMate op
+  const outputContainer = document.createElement("div");  //for Cratoss op
   outputContainer.setAttribute("class", "container AI");            
   outputContainer.setAttribute("id", "Profile");
   elem = document.createElement("img");
   outputContainer.class = "AI";
-  elem.src = "/IoTbot/__libraries/__images/AI.png";
+  elem.src = "/IoTbot/__libraries/__images/AI.png";         
   elem.height = "50";
-  elem.width = "50";                                                // THis phase is adding img to the TechMate
+  elem.width = "50";                                                // THis phase is adding img to the Cratoss
   elem.alt = "AI";
   elem.setAttribute("class", "rounded-circle p-2");
   outputContainer.appendChild(elem);
@@ -35,7 +35,7 @@ function Ajax() {
   animation_.setAttribute("id", "typingIndicator"); 
   outputContainer.appendChild(animation_);
   document.body.appendChild(outputContainer);
-  starttypeanimation();
+  starttypeanimation(); //to start typing... animation
   
   $.ajax({
     type: "post",
@@ -50,28 +50,20 @@ function Ajax() {
       result_ = JSON.parse(response);
       stoptypeanimation();
       $('#typingIndicator').remove()
-      
       const outputText = result_["output"];
-      
-      
       document.body.appendChild(outputContainer);
-      const typingDelay = 12;                                               //this is for generting output text from TechMate in Webpage
+      const typingDelay = 12;                                               //this is for generting output text from Cratoss in Webpage
       let index = 0;
-
-
-      
       var copy_ = document.createElement("div");
       copy_.setAttribute("class", "input-group-append");
-
       var x = document.createElement("BUTTON");
       x.setAttribute("class", "btn btn-primary ");
-
       var para = document.getElementsByTagName("button");
       para.id = "copytext";
       x.addEventListener("click", function () {                           // THis phase is for adding copy button to that AI
-        Copy(result_['output']);
-        this.innerHTML="&#10003 Copied";
-        setTimeout(() => this.innerHTML="Copy", 1000)
+      Copy(result_['output']);
+      this.innerHTML="&#10003 Copied";
+      setTimeout(() => this.innerHTML="Copy", 1000)
       });
       var t = document.createTextNode("Copy");
       x.appendChild(t);
@@ -91,22 +83,7 @@ function Ajax() {
           // $('container AI')[0].scrollTop = $('body')[0].scrollHeight;
         }
       }
-
-
-      // elem = document.createElement("img");
-      // outputContainer.class = "AI";
-      // elem.src = "/IoTbot/__libraries/__images/AI.png";
-      // elem.height = "50";
-      // elem.width = "50";                                                // THis phase is adding img to the TechMate
-      // elem.alt = "AI";
-      // elem.setAttribute("class", "rounded-circle p-2");
-      // outputContainer.appendChild(elem);
-      // document.body.appendChild(outputContainer);
       typeNextCharacter();
-
-     
- 
-
       // window.scrollTo(0, document.body.scrollHeight);
 
     },
@@ -124,13 +101,13 @@ function Copy(text) {
 
 function starttypeanimation() {
 
-  $("#typingIndicator").text("Typing....");                   //This is for writing of typing... for TechMate
+  $("#typingIndicator").text("Typing....");                   //This is for writing of typing... for Cratoss
 
 }
 
 function stoptypeanimation() {
 
-  $("#typingIndicator").text("");                        //This is for stop writing of typing... for TechMate
+  $("#typingIndicator").text("");                        //This is for stop writing of typing... for Cratoss
 
 }
 

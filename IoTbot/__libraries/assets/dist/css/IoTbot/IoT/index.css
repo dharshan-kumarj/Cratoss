@@ -1,16 +1,18 @@
 .user{
-    color:whitesmoke;
+    /* to add colour to text of user */
+    color:whitesmoke;    
     
 }
 
 
 .AI{
+  /* to add colour to text of AI */
     color:white;
-    
 }
 
 
 .btn{
+  /* to add copy button to the right side of AI text */
   float: right;
 }
 
