@@ -15,3 +15,7 @@ Just utilise a user-friendly UI or natural language instructions to communicate 
 
 Get started with Cratoss today and unlock the full potential of your IoT infrastructure!
 
+Start Using The Cratoss by clicking below!
+
+[Click to open cratoss](https://cratoss.in)
+
