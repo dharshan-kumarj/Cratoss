@@ -18,9 +18,12 @@
 
 
 
+
+
 .btn{
   /* to add copy button to the right side of AI text */
   float: right;
+  font-size: 25px;
 }
 
 

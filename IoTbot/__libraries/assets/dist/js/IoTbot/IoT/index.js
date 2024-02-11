@@ -56,7 +56,7 @@ function Ajax() {
       let index = 0;
       var copy_ = document.createElement("div");
       copy_.setAttribute("class", "input-group-append");
-      var x = document.createElement("BUTTON");
+      var x = document.createElement("i");
       x.setAttribute("class", "btn btn-primary ");
       var para = document.getElementsByTagName("button");
       para.id = "copytext";
