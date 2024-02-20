@@ -17,5 +17,5 @@ Get started with Cratoss today and unlock the full potential of your IoT infrast
 
 Start Using The Cratoss by clicking below!
 
-[Click to open cratoss](https://cratoss.in)
+[Click to open cratoss](https://cratoss.site)
 
