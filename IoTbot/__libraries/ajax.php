@@ -2,13 +2,20 @@
 
 include "load.php";
 
-$userin = $_POST['userinput'];    //to send the userinput in post
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-$output;
+$input = $_POST['userinput'];
+$command = "python3 /var/www/html/Cratoss/IoTbot/__libraries/__py_/source.py -i \"" . escapeshellarg($input) . "\"";
+
+$output = shell_exec($command);
+
+echo $output;
 
 
-exec("python3 __py_/source.py -i '$userin'",$output);   //for execute the cmd in in command line from userinput
-echo $output[0]                  // to send to js
+
+// exec("python3 /Cratoss/IoTbot/__libraries/__py_/source.py -i '$userin'",$output);   //for execute the cmd in in command line from userinput
+// echo $output[0]                  // to send to js
 
 
 ?>

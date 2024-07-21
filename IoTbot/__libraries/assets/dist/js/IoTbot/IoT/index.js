@@ -12,7 +12,7 @@ function Ajax() {
 
   elem = document.createElement("img");
   new_row.class = "container text-end User";
-  elem.src = "/IoTbot/__libraries/__images/User.png";                    //to add image for the User
+  elem.src = "/Cratoss/IoTbot/__libraries/__images/User.png";                    //to add image for the User
   elem.height = "50";
   elem.width = "50";
   elem.alt = "User";
@@ -25,7 +25,7 @@ function Ajax() {
   outputContainer.setAttribute("id", "Profile");
   elem = document.createElement("img");
   outputContainer.class = "AI";
-  elem.src = "/IoTbot/__libraries/__images/AI.png";         
+  elem.src = "/Cratoss/IoTbot/__libraries/__images/AI.png";         
   elem.height = "50";
   elem.width = "50";                                                // THis phase is adding img to the Cratoss
   elem.alt = "AI";
@@ -39,14 +39,14 @@ function Ajax() {
   
   $.ajax({
     type: "post",
-    url: "/IoTbot/__libraries/ajax.php",
+    url: "/Cratoss/IoTbot/__libraries/ajax.php",
     data: {                                                           // for getting the output
       userinput: input,
     },
     
     
     success: function (response) {
-      
+      console.log("Raw response:", response);
       result_ = JSON.parse(response);
       stoptypeanimation(); //to start type animation
       $('#typingIndicator').remove()
