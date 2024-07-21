@@ -1,152 +1,155 @@
-function Ajax() {
-  input = $("#userinput").val();
-  var new_row = document.createElement("div");
-  new_row.setAttribute("class", "container text-end user ");
-  new_row.setAttribute("id", "Profile");
-  const node = document.createTextNode($("#userinput").val());
-  new_row.appendChild(node);
-  document.body.appendChild(new_row);
-  $("#userinput").val("");
+document.addEventListener('DOMContentLoaded', function() {
+  function Ajax() {
+      const input = $("#userinput").val();
+      if (!input.trim()) return;  // Prevent empty messages
 
-  elem = document.createElement("img");
-  new_row.class = "container text-end User";
-  elem.src = "/Cratoss/IoTbot/__libraries/__images/User.png";
-  elem.height = "50";
-  elem.width = "50";
-  elem.alt = "User";
-  elem.setAttribute("class", "rounded-circle p-2");
-  new_row.appendChild(elem);
-  document.body.appendChild(new_row);
+      appendMessage('user', input);
+      $("#userinput").val("");
 
-  const outputContainer = document.createElement("div");
-  outputContainer.setAttribute("class", "container AI");
-  outputContainer.setAttribute("id", "Profile");
-  elem = document.createElement("img");
-  outputContainer.class = "AI";
-  elem.src = "/Cratoss/IoTbot/__libraries/__images/AI.png";
-  elem.height = "50";
-  elem.width = "50";
-  elem.alt = "AI";
-  elem.setAttribute("class", "rounded-circle p-2");
-  outputContainer.appendChild(elem);
-  const animation_ = document.createElement("div");
-  animation_.setAttribute("id", "typingIndicator");
-  outputContainer.appendChild(animation_);
-  document.body.appendChild(outputContainer);
-  starttypeanimation();
+      // Show typing indicator
+      appendMessage('ai', '<div class="typing-indicator"><span></span><span></span><span></span></div>');
 
-  $.ajax({
-    type: "post",
-    url: "/Cratoss/IoTbot/__libraries/ajax.php",
-    data: {
-      userinput: input,
-    },
-    success: function (response) {
-      console.log("Raw response:", response);
-      result_ = JSON.parse(response);
-      stoptypeanimation();
-      $('#typingIndicator').remove();
-      const outputText = result_["output"];
+      $.ajax({
+          type: "post",
+          url: "/Cratoss/IoTbot/__libraries/ajax.php",
+          data: { userinput: input },
+          success: function (response) {
+              console.log("Raw response:", response);
+              const result = JSON.parse(response);
+              
+              // Remove typing indicator
+              $('.ai:last-child').remove();
 
-      // Create a container for the formatted output
-      const formattedOutput = document.createElement("div");
-      formattedOutput.setAttribute("class", "formatted-output");
+              appendMessage('ai', formatOutput(result.output));
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+              console.error("Ajax request failed:", textStatus, errorThrown);
+              
+              // Remove typing indicator
+              $('.ai:last-child').remove();
 
-      // Parse the output text
-      const sections = parseOutput(outputText);
-
-      // Create elements for each section
-      for (const [title, content] of Object.entries(sections)) {
-        const section = document.createElement("div");
-        section.setAttribute("class", "output-section");
-
-        const titleElem = document.createElement("h3");
-        titleElem.textContent = title;
-        section.appendChild(titleElem);
-
-        if (title.toLowerCase().includes("code")) {
-          const codeOutput = document.createElement("pre");
-          codeOutput.setAttribute("class", "code-output");
-          const codeElem = document.createElement("code");
-          codeElem.innerHTML = content;
-          codeOutput.appendChild(codeElem);
-          
-          // Add copy button for code section
-          const codeCopyBtn = createCopyButton(content);
-          codeCopyBtn.setAttribute("class", "btn btn-primary code-copy-btn");
-          section.appendChild(codeCopyBtn);
-          
-          section.appendChild(codeOutput);
-        } else {
-          const contentElem = document.createElement("div");
-          contentElem.innerHTML = content;
-          section.appendChild(contentElem);
-        }
-
-        formattedOutput.appendChild(section);
-      }
-
-      outputContainer.appendChild(formattedOutput);
-      document.body.appendChild(outputContainer);
-
-      // Add copy button for entire response
-      var responseCopyBtn = createCopyButton(result_['output']);
-      responseCopyBtn.setAttribute("class", "btn btn-primary response-copy-btn");
-      outputContainer.appendChild(responseCopyBtn);
-
-      window.scrollTo(0, document.body.scrollHeight);
-    },
-  });
-}
-
-function createCopyButton(text) {
-  const btn = document.createElement("button");
-  btn.textContent = "Copy";
-  btn.addEventListener("click", function () {
-    Copy(text);
-    this.textContent = "Copied!";
-    setTimeout(() => this.textContent = "Copy", 1000);
-  });
-  return btn;
-}
-
-function Copy(text) {
-  navigator.clipboard.writeText(text).then(function() {
-    console.log('Copying to clipboard was successful!');
-  }, function(err) {
-    console.error('Could not copy text: ', err);
-  });
-}
-
-function starttypeanimation() {
-  $("#typingIndicator").text("Typing....");
-}
-
-function stoptypeanimation() {
-  $("#typingIndicator").text("");
-}
-
-function parseOutput(text) {
-  const sections = {};
-  let currentSection = "Description";
-  let lines = text.split('\n');
-  let inCodeBlock = false;
-
-  for (let line of lines) {
-    if (line.startsWith('**') && line.endsWith('**')) {
-      currentSection = line.replace(/\*\*/g, '').trim();
-      sections[currentSection] = "";
-    } else if (line.trim() === '```') {
-      inCodeBlock = !inCodeBlock;
-      sections[currentSection] += inCodeBlock ? '<pre><code>' : '</code></pre>';
-    } else {
-      if (!inCodeBlock) {
-        // Replace ** with <strong> tags for bold text
-        line = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-      }
-      sections[currentSection] += line + "\n";
-    }
+              appendMessage('ai', "Sorry, I encountered an error. Please try again.");
+          }
+      });
   }
 
-  return sections;
-}
+  function appendMessage(type, content) {
+      const chatContainer = document.getElementById('chat-container');
+      if (!chatContainer) {
+          console.error("Chat container not found!");
+          return;
+      }
+
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `message ${type}`;
+
+      const avatar = document.createElement('img');
+      avatar.src = `/Cratoss/IoTbot/__libraries/__images/${type === 'user' ? 'User' : 'AI'}.png`;
+      avatar.alt = type === 'user' ? 'User' : 'AI';
+      avatar.className = 'avatar';
+
+      const messageContent = document.createElement('div');
+      messageContent.className = 'message-content';
+      messageContent.innerHTML = content;
+
+      if (type === 'ai') {
+          const copyButton = document.createElement('button');
+          copyButton.className = 'copy-btn';
+          copyButton.textContent = 'Copy';
+          copyButton.onclick = function() { copyToClipboard(this); };
+          messageContent.appendChild(copyButton);
+      }
+
+      if (type === 'user') {
+          messageDiv.appendChild(messageContent);
+          messageDiv.appendChild(avatar);
+      } else {
+          messageDiv.appendChild(avatar);
+          messageDiv.appendChild(messageContent);
+      }
+
+      chatContainer.appendChild(messageDiv);
+      scrollToBottom();
+  }
+
+  function formatOutput(text) {
+      const sections = parseOutput(text);
+      let formattedHtml = '';
+
+      for (const [title, content] of Object.entries(sections)) {
+          formattedHtml += `
+              <div class="output-section">
+                  <h3>${title}</h3>
+                  ${title.toLowerCase().includes("code") ? 
+                      `<pre><code>${content}</code></pre>` :
+                      `<div>${content}</div>`}
+              </div>
+          `;
+      }
+
+      return wrapCodeBlocks(formattedHtml);
+  }
+
+  function parseOutput(text) {
+      const sections = {};
+      let currentSection = "";
+      let lines = text.split('\n');
+      let inCodeBlock = false;
+
+      for (let line of lines) {
+          if (line.startsWith('**') && line.endsWith('**')) {
+              currentSection = line.replace(/\*\*/g, '').trim();
+              sections[currentSection] = "";
+          } else if (line.trim() === '```') {
+              inCodeBlock = !inCodeBlock;
+              sections[currentSection] += inCodeBlock ? '<pre><code>' : '</code></pre>';
+          } else {
+              if (!inCodeBlock) {
+                  line = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+              }
+              sections[currentSection] += line + "\n";
+          }
+      }
+
+      return sections;
+  }
+
+  function wrapCodeBlocks(html) {
+      return html.replace(/<div>([\s\S]*?)<\/div>/g, function(match, p1) {
+          if (p1.includes('```')) {
+              return '<pre><code>' + p1.replace(/```/g, '') + '</code></pre>';
+          }
+          return match;
+      });
+  }
+
+  function copyToClipboard(button) {
+      const messageContent = button.closest('.message-content');
+      const textToCopy = messageContent.innerText.replace('Copy', '').trim();
+
+      navigator.clipboard.writeText(textToCopy).then(function() {
+          button.textContent = "Copied!";
+          setTimeout(() => button.textContent = "Copy", 1000);
+      }, function(err) {
+          console.error('Could not copy text: ', err);
+      });
+  }
+
+  function scrollToBottom() {
+      const chatContainer = document.getElementById('chat-container');
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+  }
+
+  // Event listener for Enter key
+  const userinput = document.getElementById("userinput");
+  if (userinput) {
+      userinput.addEventListener("keypress", function(event) {
+          if (event.key === "Enter") {
+              event.preventDefault();
+              Ajax();
+          }
+      });
+  } else {
+      console.error("User input element not found!");
+  }
+});
