@@ -1,18 +1,16 @@
 function Ajax() {
-
-  
   input = $("#userinput").val();
   var new_row = document.createElement("div");
   new_row.setAttribute("class", "container text-end user ");
   new_row.setAttribute("id", "Profile");
   const node = document.createTextNode($("#userinput").val());
-  new_row.appendChild(node);                                              // this for typing user input in webpage
-  document.body.appendChild(new_row);                          
+  new_row.appendChild(node);
+  document.body.appendChild(new_row);
   $("#userinput").val("");
 
   elem = document.createElement("img");
   new_row.class = "container text-end User";
-  elem.src = "/Cratoss/IoTbot/__libraries/__images/User.png";                    //to add image for the User
+  elem.src = "/Cratoss/IoTbot/__libraries/__images/User.png";
   elem.height = "50";
   elem.width = "50";
   elem.alt = "User";
@@ -20,106 +18,135 @@ function Ajax() {
   new_row.appendChild(elem);
   document.body.appendChild(new_row);
 
-  const outputContainer = document.createElement("div");          //for Cratoss op
-  outputContainer.setAttribute("class", "container AI");            
+  const outputContainer = document.createElement("div");
+  outputContainer.setAttribute("class", "container AI");
   outputContainer.setAttribute("id", "Profile");
   elem = document.createElement("img");
   outputContainer.class = "AI";
-  elem.src = "/Cratoss/IoTbot/__libraries/__images/AI.png";         
+  elem.src = "/Cratoss/IoTbot/__libraries/__images/AI.png";
   elem.height = "50";
-  elem.width = "50";                                                // THis phase is adding img to the Cratoss
+  elem.width = "50";
   elem.alt = "AI";
   elem.setAttribute("class", "rounded-circle p-2");
   outputContainer.appendChild(elem);
-  const animation_ = document.createElement("div"); 
-  animation_.setAttribute("id", "typingIndicator"); 
+  const animation_ = document.createElement("div");
+  animation_.setAttribute("id", "typingIndicator");
   outputContainer.appendChild(animation_);
   document.body.appendChild(outputContainer);
-  starttypeanimation(); //to start typing... animation
-  
+  starttypeanimation();
+
   $.ajax({
     type: "post",
     url: "/Cratoss/IoTbot/__libraries/ajax.php",
-    data: {                                                           // for getting the output
+    data: {
       userinput: input,
     },
-    
-    
     success: function (response) {
       console.log("Raw response:", response);
       result_ = JSON.parse(response);
-      stoptypeanimation(); //to start type animation
-      $('#typingIndicator').remove()
+      stoptypeanimation();
+      $('#typingIndicator').remove();
       const outputText = result_["output"];
-      document.body.appendChild(outputContainer);
-      const typingDelay = 12;                                               //this is for generting output text from Cratoss in Webpage
-      let index = 0;
-      var copy_ = document.createElement("div");
-      copy_.setAttribute("class", "input-group-append");
-      var x = document.createElement("i");
-      x.setAttribute("class", "btn btn-primary ");
-      var para = document.getElementsByTagName("button");
-      para.id = "copytext";
-      x.addEventListener("click", function () {                           // THis phase is for adding copy button to that AI
-      Copy(result_['output']);
-      this.innerHTML="&#10003 Copied";
-      setTimeout(() => this.innerHTML="Copy", 1000)
-      });
-      var t = document.createTextNode("Copy");
-      x.appendChild(t);
-      
 
+      // Create a container for the formatted output
+      const formattedOutput = document.createElement("div");
+      formattedOutput.setAttribute("class", "formatted-output");
 
-     
-      function typeNextCharacter() {
-        if (index < outputText.length) {
-          const char = outputText.charAt(index);
-          const charNode = document.createTextNode(char);                // This phase is for animation of text animation
-          outputContainer.appendChild(charNode);
-          index++;
+      // Parse the output text
+      const sections = parseOutput(outputText);
+
+      // Create elements for each section
+      for (const [title, content] of Object.entries(sections)) {
+        const section = document.createElement("div");
+        section.setAttribute("class", "output-section");
+
+        const titleElem = document.createElement("h3");
+        titleElem.textContent = title;
+        section.appendChild(titleElem);
+
+        if (title.toLowerCase().includes("code")) {
+          const codeOutput = document.createElement("pre");
+          codeOutput.setAttribute("class", "code-output");
+          const codeElem = document.createElement("code");
+          codeElem.innerHTML = content;
+          codeOutput.appendChild(codeElem);
           
-          setTimeout(typeNextCharacter, typingDelay);
-          outputContainer.appendChild(x);
-          window.scrollTo(1000, 1000); 
-         
+          // Add copy button for code section
+          const codeCopyBtn = createCopyButton(content);
+          codeCopyBtn.setAttribute("class", "btn btn-primary code-copy-btn");
+          section.appendChild(codeCopyBtn);
+          
+          section.appendChild(codeOutput);
         } else {
-          Copy(result_['output']);
-          // $('container AI')[0].scrollTop = $('container AI')[0].scrollHeight;
+          const contentElem = document.createElement("div");
+          contentElem.innerHTML = content;
+          section.appendChild(contentElem);
         }
+
+        formattedOutput.appendChild(section);
       }
-      typeNextCharacter();
-      
-      
 
+      outputContainer.appendChild(formattedOutput);
+      document.body.appendChild(outputContainer);
 
-      // const scrollingContainer = document.getElementById('Scroll');
-      // const scrollSpeed = 30;
-      // const totalHeight = scrollingContainer.scrollHeight;
-      // const totalTime = (totalHeight / scrollSpeed) * 1000;
-      
+      // Add copy button for entire response
+      var responseCopyBtn = createCopyButton(result_['output']);
+      responseCopyBtn.setAttribute("class", "btn btn-primary response-copy-btn");
+      outputContainer.appendChild(responseCopyBtn);
+
+      window.scrollTo(0, document.body.scrollHeight);
     },
   });
-    
+}
+
+function createCopyButton(text) {
+  const btn = document.createElement("button");
+  btn.textContent = "Copy";
+  btn.addEventListener("click", function () {
+    Copy(text);
+    this.textContent = "Copied!";
+    setTimeout(() => this.textContent = "Copy", 1000);
+  });
+  return btn;
+}
+
 function Copy(text) {
-  var copyText = document.createElement("textarea");
-  copyText.value = text;
-  document.body.appendChild(copyText);                           //THis phase is for copy button function
-  copyText.select();
-  document.execCommand("copy");
-  document.body.removeChild(copyText);
-  
+  navigator.clipboard.writeText(text).then(function() {
+    console.log('Copying to clipboard was successful!');
+  }, function(err) {
+    console.error('Could not copy text: ', err);
+  });
 }
 
 function starttypeanimation() {
-
-  $("#typingIndicator").text("Typing....");                   //This is for writing of typing... for Cratoss
-
+  $("#typingIndicator").text("Typing....");
 }
 
 function stoptypeanimation() {
-
-  $("#typingIndicator").text("");                        //This is for stop writing of typing... for Cratoss
-
+  $("#typingIndicator").text("");
 }
 
+function parseOutput(text) {
+  const sections = {};
+  let currentSection = "Description";
+  let lines = text.split('\n');
+  let inCodeBlock = false;
+
+  for (let line of lines) {
+    if (line.startsWith('**') && line.endsWith('**')) {
+      currentSection = line.replace(/\*\*/g, '').trim();
+      sections[currentSection] = "";
+    } else if (line.trim() === '```') {
+      inCodeBlock = !inCodeBlock;
+      sections[currentSection] += inCodeBlock ? '<pre><code>' : '</code></pre>';
+    } else {
+      if (!inCodeBlock) {
+        // Replace ** with <strong> tags for bold text
+        line = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      }
+      sections[currentSection] += line + "\n";
+    }
+  }
+
+  return sections;
 }
